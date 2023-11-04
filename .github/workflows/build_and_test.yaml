@@ -1,0 +1,55 @@
+
+name: build and test
+on: push
+jobs:
+  Ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: build and install gtest
+        run: |
+          git clone https://github.com/google/googletest.git
+          cd googletest
+          mkdir build
+          cd build
+          cmake ..
+          make -j
+          sudo make install
+
+      - name: Build
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          make -j
+      - name: Test
+        run: |
+          cd build/unittests
+          ./systemf_unittests
+  MacOSX:
+    runs-on: macos-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: build and install gtest
+        run: |
+          git clone https://github.com/google/googletest.git
+          cd googletest
+          mkdir build
+          cd build
+          cmake ..
+          make -j
+          sudo make install
+
+      - name: Build
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          make -j
+      - name: Test
+        run: |
+          cd build/unittests
+          ./systemf_unittests
+
