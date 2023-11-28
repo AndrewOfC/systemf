@@ -14,18 +14,23 @@ int systemf(const char *command, ...)
     va_list args ;
     int len, result ;
     char buffer[SYSTEMF_MAXIMUM_SMALL_BUFFER], *bufferPtr = NULL ; // initial size
+    
     va_start(args, command) ;
-
     len = vsnprintf(buffer, sizeof(buffer), command, args) ;
+    va_end(args) ;
+    
     if( len >= sizeof(buffer) ) {
         bufferPtr = malloc(len+1) ;
+	
+	va_start(args, command) ;
         vsnprintf(bufferPtr, len+1, command, args) ;
+	va_end(args) ;
+	
         result = system(bufferPtr) ;
         free(bufferPtr) ;
     }
     else
         result = system(buffer) ;
 
-    va_end(args) ;
     return result ;
 }
