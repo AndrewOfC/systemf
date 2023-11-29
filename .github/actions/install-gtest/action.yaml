@@ -5,6 +5,16 @@ inputs:
     description: Ref/tag to use
     required: false
     default: v1.14.0
+  build-dir:
+    description: Checkout and Build Directory
+    required: false
+    default: googletest
+  cmake-build-type:
+    description: CMake Build Type (e.g. Debug Release)
+    required: false
+    default: Release
+    
+    
 runs:
   using: "composite"
   steps:
@@ -20,6 +30,6 @@ runs:
       run: |
         mkdir build
         cd build
-        cmake ..
+        cmake -DCMAKE_BUILD_TYPE=${{inputs.cmake-build-type}} ..
         make -j
         sudo make install

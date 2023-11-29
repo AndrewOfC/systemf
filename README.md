@@ -11,3 +11,18 @@ That being said, I've also seen in way too many places terrible error-prone prac
 This library is an attempt to at least provide a cleaner way of executing them, while leveraging the gnu compiler suite execellent [checking of printf style](https://gcc.gnu.org/onlinedocs/gcc-3.1.1/gcc/Function-Attributes.html) parameters.
 
 
+# Examples
+
+## From
+
+```C
+char buffer[64] ;
+sprintf(buffer, "sleep %d", 5) ;
+system(buffer) ;
+```
+
+## To
+
+```C
+systemf("sleep %d", 5) ;
+```

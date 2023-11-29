@@ -8,7 +8,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
       - name: build and install gtest
-        uses: ././.github/actions/install-gtest
+        uses: ./.github/actions/install-gtest
       - name: Build
         run: |
           mkdir build
@@ -25,7 +25,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
       - name: build and install gtest
-        uses: ././.github/actions/install-gtest
+        uses: ./.github/actions/install-gtest
       - name: Build
         run: |
           mkdir build
