@@ -19,6 +19,8 @@ jobs:
         run: |
           cd build/unittests
           ./systemf_unittests
+      - name: install valgrind
+        run: sudo apt update && sudo apt install -y valgrind
       - name:
         run: |
           cd build/unittests
