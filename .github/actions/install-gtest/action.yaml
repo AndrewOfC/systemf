@@ -22,10 +22,10 @@ runs:
       uses: actions/checkout@v4
       with:
         repository: google/googletest.git
-        path: googletest
+        path: ${{ inputs.build-dir }}
         ref: ${{ inputs.ref }}
     - name: build
-      working-directory: googletest
+      working-directory: ${{ inputs.build-dir }}
       shell: bash
       run: |
         mkdir build

@@ -21,6 +21,7 @@ int systemf(const char *command, ...)
     
     if( len >= sizeof(buffer) ) {
         bufferPtr = malloc(len+1) ;
+	assert(bufferPtr != NULL) ;
 	
 	va_start(args, command) ;
         vsnprintf(bufferPtr, len+1, command, args) ;
