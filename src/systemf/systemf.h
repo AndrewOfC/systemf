@@ -9,6 +9,7 @@
 #define SYSTEMF_PARAMCHECK_ATTR __attribute__ ((format (printf, 1, 2)))
 #else
 #warning no printf param checking
+#define SYSTEMF_PARAMCHECK_ATTR
 #endif
 
 #define SYSTEMF_MAXIMUM_SMALL_BUFFER 256

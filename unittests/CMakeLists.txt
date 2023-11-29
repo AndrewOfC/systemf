@@ -9,4 +9,4 @@ target_link_directories(systemf_unittests PUBLIC /usr/local/lib)
 
 GTEST_ADD_TESTS(TARGET systemf_unittests)
 
-target_link_libraries(systemf_unittests systemf gtest)
+target_link_libraries(systemf_unittests systemf gtest pthread)
