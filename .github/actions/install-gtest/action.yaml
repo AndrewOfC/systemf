@@ -1,0 +1,25 @@
+name: Build And Install GTest
+description:  Build and Install GTest
+inputs:
+  ref:
+    description: Ref/tag to use
+    required: false
+    default: v1.14.0
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        repository: google/googletest.git
+        path: googletest
+        ref: ${{ inputs.ref }}
+    - name: build
+      working-directory: googletest
+      shell: bash
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        make -j
+        sudo make install
