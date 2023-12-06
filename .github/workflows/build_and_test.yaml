@@ -32,31 +32,35 @@ jobs:
       - name: Save
         uses: actions/upload-artifact@v3
         with:
-          name: Deb Install Package
+          name: deb
           path: build/*.deb
 
 
-  # CentOS:
-  #   runs-on: centos-latest
-  #   steps:
-  #     - name: Check out repository
-  #       uses: actions/checkout@v4
-  #     - name: build and install gtest
-  #       uses: ./.github/actions/install-gtest
-  #     - name: Build
-  #       run: |
-  #         mkdir build
-  #         cd build
-  #         cmake ..
-  #         make -j
-  #     - name: Test
-  #       run: |
-  #         cd build/unittests
-  #         ./systemf_unittests
-  #     - name: Package
-  #       working-directory: build
-  #       run: |
-  #         make package
+  RedHat:
+    runs-on: ubuntu-latest
+    container: docker.io/andrewofc/redhatbuilder
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Build
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          make -j
+      - name: Test
+        run: |
+          cd build/unittests
+          ./systemf_unittests
+      - name: Package
+        working-directory: build
+        run: |
+          make package
+      - name: Save
+        uses: actions/upload-artifact@v3
+        with:
+          name: rpm
+          path: build/*.rpm
 
   MacOSX:
     runs-on: macos-latest

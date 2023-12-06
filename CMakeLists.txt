@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.22)
+cmake_minimum_required(VERSION 3.20)
 project(libsystemf LANGUAGES C CXX)
 
 SET(CMAKE_CXX_STANDARD 20)
@@ -16,9 +16,9 @@ add_subdirectory(src)
 add_subdirectory(unittests)
 
 ##
-## .dpkg and .rpm packages
+## .deb and .rpm packages
 ##
-execute_process(COMMAND lsb_release -si OUTPUT_VARIABLE DISTRO OUTPUT_STRIP_TRAILING_WHITESPACE)
+execute_process(COMMAND ${CMAKE_CURRENT_LIST_DIR}/scripts/parseosrelease.py ID OUTPUT_VARIABLE DISTRO OUTPUT_STRIP_TRAILING_WHITESPACE)
 IF( "${DISTRO}" STREQUAL "" )
   set(DISTRO "unknown")
 ENDIF()
@@ -29,11 +29,11 @@ set(CPACK_PACKAGE_VERSION_MAJOR "1")
 set(CPACK_PACKAGE_VERSION_MINOR "0")
 set(CPACK_PACKAGE_VERSION_PATCH "1")
 
-IF( ${DISTRO} STREQUAL "Ubuntu" OR ${DISTRO} STREQUAL "Debian")
+IF( ${DISTRO} STREQUAL "ubuntu")
   set(CPACK_DEBIAN_PACKAGE_MAINTAINER AndrewOfC@github.com)
   set(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6")
   set(CPACK_GENERATOR DEB)
-ELSEIF( ${DISTRO} STREQUAL "Fedora" )
+ELSEIF( ${DISTRO} STREQUAL "rhel" )
   set(CPACK_RPM_PACKAGE_REQUIRES "glibc")
   set(CPACK_RPM_PACKAGE_LICENSE "MIT")
   set(CPACK_GENERATOR RPM)
